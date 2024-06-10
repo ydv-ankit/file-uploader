@@ -3,15 +3,27 @@ import mongoose from "mongoose";
 const fileSchema = new mongoose.Schema({
     filename: {
         type: String,
+        required: true
     },
     filetype: {
-        type: String
+        type: String,
+        required: true
     },
     filepath: {
-        type: String
+        type: String,
+        required: true
+    },
+    fileurl: {
+        type: String,
+        required: true
     },
     filesize: {
-        type: Number
+        type: Number,
+        required: true
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     }
 }, {
     timestamps: true
