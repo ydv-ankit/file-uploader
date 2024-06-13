@@ -27,7 +27,7 @@ export const getUser = async (req: any, res: any) => {
     try {
         const user = await userModel.findById(userId);
         if (user)
-            res.status(200).json({ data: user, status: statusMessages.SUCCESS })
+            res.cookie("userId", user._id).status(200).json({ data: user, status: statusMessages.SUCCESS })
         else
             res.status(404).json({ data: statusMessages.INVALID_QUERY, status: statusMessages.NOT_FOUND })
     } catch (error) {

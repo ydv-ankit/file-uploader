@@ -1,13 +1,21 @@
 import express from 'express'
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 import { connectToMongoDatabase } from './config/db';
-import userRoutes from './routes/user.route.js';
+import userRoutes from './routes/user.route';
+import fileRoutes from "./routes/file.route"
 
 /* server app and middlewares */
 const app = express();
 // parse req.body
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+// cookieParser
+app.use(cookieParser())
+
+// access files
+app.use("/files", express.static("files"));
 // access env variables
 dotenv.config();
 
@@ -28,7 +36,7 @@ app.get('/', (req: any, res: any) => {
 })
 
 app.use("/api/users", userRoutes);
-// app.use("/api/file", fileRoutes);
+app.use("/api/file", fileRoutes);
 
 // start server listening for requests
 app.listen(PORT, () => {
